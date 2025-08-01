@@ -1,0 +1,174 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0bkopksr02va"]
+
+[ext_resource type="Script" uid="uid://c5mpwqo58p34i" path="res://prompt_area.gd" id="1_pn8sw"]
+[ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="2_2iupd"]
+[ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="3_2oxks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyed"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oxks"]
+atlas = ExtResource("2_2iupd")
+region = Rect2(80, 79, 48, 49)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p8p75"]
+
+[sub_resource type="Animation" id="Animation_2oxks"]
+resource_name = "prompt"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("floatParent/speech:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(97, -89), Vector2(97, -113)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("floatParent/PanelContainer/RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.233333, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("floatParent/speech:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.248897),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p8p75"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("floatParent/speech:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(97, -109)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("floatParent/PanelContainer/RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("floatParent/speech:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("floatParent:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yni4a"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("floatParent:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yni4a"]
+_data = {
+&"RESET": SubResource("Animation_p8p75"),
+&"float": SubResource("Animation_yni4a"),
+&"prompt": SubResource("Animation_2oxks")
+}
+
+[node name="promptArea" type="Area2D"]
+script = ExtResource("1_pn8sw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4gyed")
+
+[node name="floatParent" type="Node2D" parent="."]
+visible = false
+scale = Vector2(1.5, 1.5)
+
+[node name="speech" type="Sprite2D" parent="floatParent"]
+position = Vector2(97, -109)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_2oxks")
+
+[node name="PanelContainer" type="PanelContainer" parent="floatParent"]
+offset_left = 8.0
+offset_top = -195.0
+offset_right = 183.0
+offset_bottom = -34.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p8p75")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="floatParent/PanelContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_2oxks")
+bbcode_enabled = true
+text = "You can press [color=red][wave]Q[/wave][/color] to \"loop\" back to the beginning of a level!
+
+Once you loop, you will summon a [color=blue][wave]ghost[/wave][/color] that mimicks your actions on the previous loop."
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yni4a")
+}
+
+[node name="float" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yni4a")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

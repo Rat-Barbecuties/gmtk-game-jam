@@ -47,6 +47,7 @@ animations = [{
 }]
 
 [node name="land_dust" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_whlvr")
 frame = 4
 frame_progress = 1.0

@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqs6n1wc5leel"]
+
+[ext_resource type="Texture2D" uid="uid://b1w8ocf6nk8s1" path="res://toolkit/button.png" id="1_n4tde"]
+[ext_resource type="Script" uid="uid://bo4uhpymcnxeu" path="res://button.gd" id="2_n4tde"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_n4tde"]
+points = PackedVector2Array(9.944, 16.0349, -2.01048, 2.99299, -1.9895, -3.00697, 10.0559, -15.9649)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4tde"]
+atlas = ExtResource("1_n4tde")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxja4"]
+atlas = ExtResource("1_n4tde")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r04n3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4tde")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxja4")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r04n3"]
+size = Vector2(23, 13)
+
+[node name="button" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("2_n4tde")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+rotation = 1.5673
+shape = SubResource("ConvexPolygonShape2D_n4tde")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_r04n3")
+
+[node name="interact" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interact"]
+position = Vector2(0.5, 5.5)
+shape = SubResource("RectangleShape2D_r04n3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="area_entered" from="interact" to="." method="_on_interact_area_entered"]
+[connection signal="area_exited" from="interact" to="." method="_on_interact_area_exited"]
+[connection signal="body_entered" from="interact" to="." method="_on_interact_body_entered"]
+[connection signal="body_exited" from="interact" to="." method="_on_interact_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

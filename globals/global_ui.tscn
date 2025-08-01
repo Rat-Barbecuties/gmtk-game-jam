@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://mdg1u2w0q1i3"]
+[gd_scene load_steps=18 format=3 uid="uid://mdg1u2w0q1i3"]
 
 [ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="1_q51pe"]
 [ext_resource type="Script" uid="uid://cbwdwkf2ifm1b" path="res://globals/settings.gd" id="1_yvkjj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b0lumlv2sj21b" path="res://ui/resolution_options.gd" id="4_tghew"]
 [ext_resource type="Script" uid="uid://lrnq4dsmpg3m" path="res://ui/sound_slider.gd" id="6_swurt"]
 [ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="7_xibwf"]
+[ext_resource type="Shader" uid="uid://dbxdnmfmfa05g" path="res://globals/threshold.gdshader" id="8_fvrop"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvkjj"]
 atlas = ExtResource("1_q51pe")
@@ -43,6 +44,15 @@ expand_margin_left = 10.0
 expand_margin_top = 10.0
 expand_margin_right = 10.0
 expand_margin_bottom = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftnco"]
+shader = ExtResource("8_fvrop")
+shader_parameter/threshold = 0.5
+shader_parameter/smoothness = 0.05
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/fg_color = Color(1, 1, 1, 1)
+shader_parameter/invert = false
+shader_parameter/intensity = 1.0
 
 [node name="GlobalUI" type="CanvasLayer"]
 process_mode = 3
@@ -83,10 +93,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
 
 [node name="NinePatchRect" type="NinePatchRect" parent="base/MarginContainer"]
 layout_mode = 2
@@ -98,9 +108,12 @@ patch_margin_right = 10
 patch_margin_bottom = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="base/MarginContainer/NinePatchRect"]
-layout_mode = 2
-offset_right = 720.0
-offset_bottom = 460.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 80
@@ -220,6 +233,17 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ftnco")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lcqkp")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
 text = "Quit"
+
+[node name="impact" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_ftnco")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.439216)
 
 [connection signal="item_selected" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/resolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="toggled" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5/fullscreen" to="." method="_on_fullscreen_toggled"]

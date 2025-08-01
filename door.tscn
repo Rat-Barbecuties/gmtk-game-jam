@@ -1,8 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://sdcjx3brue1x"]
+[gd_scene load_steps=29 format=3 uid="uid://sdcjx3brue1x"]
 
 [ext_resource type="Texture2D" uid="uid://btt2s3yfk7rgl" path="res://toolkit/animations/animations.png" id="1_ba8gm"]
 [ext_resource type="Script" uid="uid://cwtn0dwy6j8f0" path="res://door.gd" id="1_v6xrn"]
 [ext_resource type="Script" uid="uid://5s40abdygg7f" path="res://component/scene_transition_component.gd" id="3_0phs7"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_ptf7r"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_24eas"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xg3tq"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_quvdd"]
+[ext_resource type="Script" uid="uid://btv1eun0s0lww" path="res://door_closed.gd" id="8_ejk4w"]
+[ext_resource type="Script" uid="uid://cq7qavx7370ak" path="res://door_open.gd" id="9_vqe75"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ba8gm"]
 atlas = ExtResource("1_ba8gm")
@@ -137,14 +143,19 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0phs7"]
+size = Vector2(30, 47)
+
 [node name="door" type="Node2D"]
 script = ExtResource("1_v6xrn")
 
 [node name="door" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6hwww")
-animation = &"closed"
+animation = &"open"
 
 [node name="lock" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5esjk")
 frame = 9
 frame_progress = 1.0
@@ -152,3 +163,48 @@ frame_progress = 1.0
 [node name="SceneTransitionComponent" type="Node2D" parent="."]
 script = ExtResource("3_0phs7")
 metadata/_custom_type_script = "uid://5s40abdygg7f"
+
+[node name="interact" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interact"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0phs7")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("4_ptf7r")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("5_24eas")
+initial_state = NodePath("closed")
+
+[node name="closed" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_xg3tq")
+
+[node name="toOpen" type="Node" parent="StateChart/CompoundState/closed"]
+script = ExtResource("7_quvdd")
+to = NodePath("../../open")
+event = &"open"
+delay_in_seconds = "0.25"
+
+[node name="closed" type="Node" parent="StateChart/CompoundState/closed"]
+script = ExtResource("8_ejk4w")
+
+[node name="open" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_xg3tq")
+
+[node name="toClosed" type="Node" parent="StateChart/CompoundState/open"]
+script = ExtResource("7_quvdd")
+to = NodePath("../../closed")
+event = &"close"
+delay_in_seconds = "0.25"
+
+[node name="open" type="Node" parent="StateChart/CompoundState/open"]
+script = ExtResource("9_vqe75")
+
+[connection signal="state_entered" from="StateChart/CompoundState/closed" to="StateChart/CompoundState/closed/closed" method="_on_closed_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/closed" to="StateChart/CompoundState/closed/closed" method="_on_closed_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/closed" to="StateChart/CompoundState/closed/closed" method="_on_closed_state_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/open" to="StateChart/CompoundState/open/open" method="_on_open_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/open" to="StateChart/CompoundState/open/open" method="_on_open_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/open" to="StateChart/CompoundState/open/open" method="_on_open_state_processing"]

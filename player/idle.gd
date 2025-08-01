@@ -19,3 +19,5 @@ func _on_idle_state_processing(delta: float) -> void:
 		state_chart.send_event("move")
 	if Global.player.velocity.y < 0:
 		state_chart.send_event("jump")
+	if Global.player.velocity.y > 0:
+		state_chart.send_event("fall")

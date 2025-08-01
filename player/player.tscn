@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvikrojuesy04"]
+[gd_scene load_steps=22 format=3 uid="uid://bvikrojuesy04"]
 
 [ext_resource type="Script" uid="uid://brs8tw7841nh" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dyij10n2xefn7" path="res://component/health_component.gd" id="2_rgyib"]
+[ext_resource type="Shader" uid="uid://bx61smqtlnmk3" path="res://player/pixelmelt.gdshader" id="3_yllr7"]
 [ext_resource type="Script" uid="uid://dw02rkgi7kxwm" path="res://component/hurtbox_component.gd" id="3_yw30f"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_hg6s5"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_8t03j"]
@@ -12,6 +13,13 @@
 [ext_resource type="Script" uid="uid://hnohcjs5b6x7" path="res://player/moving.gd" id="10_ebec5"]
 [ext_resource type="Script" uid="uid://c12iq4g0r2gns" path="res://player/jumping.gd" id="11_yllr7"]
 [ext_resource type="Script" uid="uid://dvngwvyis060b" path="res://player/falling.gd" id="16_32hag"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kb6p2"]
+shader = ExtResource("3_yllr7")
+shader_parameter/progress = 0.0
+shader_parameter/texture_size = Vector2(400, 672)
+shader_parameter/float_dist = 6.0
+shader_parameter/progress_rand_range = 0.2
 
 [sub_resource type="Animation" id="Animation_c35mf"]
 length = 0.001
@@ -135,7 +143,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kb6p2"]
-size = Vector2(11.5, 12.5)
+size = Vector2(24.5, 25.5)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 999
@@ -151,6 +159,8 @@ pitch_scale = 1.49
 bus = &"SFX"
 
 [node name="sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kb6p2")
+scale = Vector2(2, 2)
 texture = ExtResource("7_wodsf")
 hframes = 8
 vframes = 14
@@ -197,6 +207,12 @@ delay_in_seconds = "0.0"
 script = ExtResource("8_ebec5")
 to = NodePath("../../jump")
 event = &"jump"
+delay_in_seconds = "0.0"
+
+[node name="toFall" type="Node" parent="StateChart/CompoundState/idle"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../falling")
+event = &"fall"
 delay_in_seconds = "0.0"
 
 [node name="idle" type="Node" parent="StateChart/CompoundState/idle"]

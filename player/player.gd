@@ -8,14 +8,15 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-const SPEED = 150.0
-const JUMP_VELOCITY = -360
+const SPEED = 250.0
+const JUMP_VELOCITY = -520
 
 var walk_dust_add = preload("res://walk_dust.tscn")
 
-var move_dir
+var move_dir = 0
 var jump_used: bool = false
 
+var has_key: bool = true
 
 func _ready() -> void:
 	Global.player = self
@@ -25,7 +26,7 @@ func update_velocity(delta:float):
 		velocity.y += gravity * delta
 	move_and_slide()
 	
-func update_input(delta: float):	
+func update_input(delta: float):
 	if Input.is_action_just_pressed("jump") && !jump_used:
 		jump_used = true
 		state_chart.send_event("jump")

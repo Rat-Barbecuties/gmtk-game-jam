@@ -2,7 +2,7 @@ extends Node
 
 
 var player
-
+var ghost
 
 var resolutions: Dictionary = {
 	"1920x1080":Vector2i(1920,1080),
