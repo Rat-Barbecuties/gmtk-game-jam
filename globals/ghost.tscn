@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx7nld2iu6lo5"]
+
+[ext_resource type="Script" uid="uid://3tihhui26fsa" path="res://globals/ghost.gd" id="1_xpgcu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2i0tb"]
+
+[node name="Node2D" type="Node2D" groups=["ghost"]]
+script = ExtResource("1_xpgcu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(14, 14)
+texture = SubResource("PlaceholderTexture2D_2i0tb")

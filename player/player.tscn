@@ -1,3 +1,270 @@
-[gd_scene format=3 uid="uid://bvikrojuesy04"]
+[gd_scene load_steps=20 format=3 uid="uid://bvikrojuesy04"]
+
+[ext_resource type="Script" uid="uid://brs8tw7841nh" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://dyij10n2xefn7" path="res://component/health_component.gd" id="2_rgyib"]
+[ext_resource type="Script" uid="uid://dw02rkgi7kxwm" path="res://component/hurtbox_component.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_hg6s5"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_8t03j"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_2ieo8"]
+[ext_resource type="Texture2D" uid="uid://sap5slbryq1a" path="res://toolkit/sprites/todd.png" id="7_wodsf"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_ebec5"]
+[ext_resource type="Script" uid="uid://yyh08ku0744y" path="res://player/idle.gd" id="9_2ieo8"]
+[ext_resource type="Script" uid="uid://hnohcjs5b6x7" path="res://player/moving.gd" id="10_ebec5"]
+[ext_resource type="Script" uid="uid://c12iq4g0r2gns" path="res://player/jumping.gd" id="11_yllr7"]
+[ext_resource type="Script" uid="uid://dvngwvyis060b" path="res://player/falling.gd" id="16_32hag"]
+
+[sub_resource type="Animation" id="Animation_c35mf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_65viv"]
+resource_name = "fall"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [80]
+}
+
+[sub_resource type="Animation" id="Animation_32hag"]
+resource_name = "idle"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.533333, 0.733333, 0.9, 1.06667, 1.26667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_e7oew"]
+resource_name = "jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [67, 68]
+}
+
+[sub_resource type="Animation" id="Animation_tqiix"]
+resource_name = "move"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.097595, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_walk"
+}, {
+"args": [],
+"method": &"play_walk"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0973144),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"create_walk_dust"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_65viv"]
+_data = {
+&"RESET": SubResource("Animation_c35mf"),
+&"fall": SubResource("Animation_65viv"),
+&"idle": SubResource("Animation_32hag"),
+&"jump": SubResource("Animation_e7oew"),
+&"move": SubResource("Animation_tqiix")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kb6p2"]
+size = Vector2(11.5, 12.5)
 
 [node name="player" type="CharacterBody2D"]
+z_index = 999
+collision_mask = 2
+script = ExtResource("1_oul6g")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("2_rgyib")
+max_health = 100.0
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+pitch_scale = 1.49
+bus = &"SFX"
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("7_wodsf")
+hframes = 8
+vframes = 14
+region_enabled = true
+region_rect = Rect2(16, 0, 384, 672)
+region_filter_clip_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_65viv")
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.75, 0.25)
+shape = SubResource("RectangleShape2D_kb6p2")
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_yw30f")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0.75, 0.25)
+shape = SubResource("RectangleShape2D_kb6p2")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("5_hg6s5")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("6_8t03j")
+initial_state = NodePath("idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("7_2ieo8")
+
+[node name="toMoving" type="Node" parent="StateChart/CompoundState/idle"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../move")
+event = &"move"
+delay_in_seconds = "0.0"
+
+[node name="toJumping" type="Node" parent="StateChart/CompoundState/idle"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../jump")
+event = &"jump"
+delay_in_seconds = "0.0"
+
+[node name="idle" type="Node" parent="StateChart/CompoundState/idle"]
+script = ExtResource("9_2ieo8")
+
+[node name="move" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("7_2ieo8")
+
+[node name="toIdle" type="Node" parent="StateChart/CompoundState/move"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../idle")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[node name="toJumping" type="Node" parent="StateChart/CompoundState/move"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../jump")
+event = &"jump"
+delay_in_seconds = "0.0"
+
+[node name="toFalling" type="Node" parent="StateChart/CompoundState/move"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../falling")
+event = &"fall"
+delay_in_seconds = "0.0"
+
+[node name="moving" type="Node" parent="StateChart/CompoundState/move"]
+script = ExtResource("10_ebec5")
+
+[node name="jump" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("7_2ieo8")
+
+[node name="toFalling" type="Node" parent="StateChart/CompoundState/jump"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../falling")
+event = &"fall"
+delay_in_seconds = "0.0"
+
+[node name="jumping" type="Node" parent="StateChart/CompoundState/jump"]
+script = ExtResource("11_yllr7")
+
+[node name="falling" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("7_2ieo8")
+
+[node name="toIdle" type="Node" parent="StateChart/CompoundState/falling"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../idle")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[node name="toMoving" type="Node" parent="StateChart/CompoundState/falling"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../move")
+event = &"move"
+delay_in_seconds = "0.0"
+
+[node name="falling" type="Node" parent="StateChart/CompoundState/falling"]
+script = ExtResource("16_32hag")
+
+[connection signal="state_entered" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/move" to="StateChart/CompoundState/move/moving" method="_on_move_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/move" to="StateChart/CompoundState/move/moving" method="_on_move_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/move" to="StateChart/CompoundState/move/moving" method="_on_move_state_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/jump" to="StateChart/CompoundState/jump/jumping" method="_on_jump_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/jump" to="StateChart/CompoundState/jump/jumping" method="_on_jump_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/jump" to="StateChart/CompoundState/jump/jumping" method="_on_jump_state_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/falling" to="StateChart/CompoundState/falling/falling" method="_on_falling_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/falling" to="StateChart/CompoundState/falling/falling" method="_on_falling_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/falling" to="StateChart/CompoundState/falling/falling" method="_on_falling_state_processing"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://baoc62dkp26ds"]
+
+[ext_resource type="Script" uid="uid://wyyavwawyjab" path="res://globals/position_tracker.gd" id="1_rfmfc"]
+
+[node name="positionTracker" type="Node"]
+script = ExtResource("1_rfmfc")

@@ -1,0 +1,229 @@
+[gd_scene load_steps=16 format=3 uid="uid://mdg1u2w0q1i3"]
+
+[ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="1_q51pe"]
+[ext_resource type="Script" uid="uid://cbwdwkf2ifm1b" path="res://globals/settings.gd" id="1_yvkjj"]
+[ext_resource type="LabelSettings" uid="uid://c41y13jhm7e2f" path="res://ui/new_label_settings.tres" id="2_wgf1h"]
+[ext_resource type="Theme" uid="uid://brylxfmokywry" path="res://ui/ui_theme.tres" id="3_tghew"]
+[ext_resource type="Script" uid="uid://b0lumlv2sj21b" path="res://ui/resolution_options.gd" id="4_tghew"]
+[ext_resource type="Script" uid="uid://lrnq4dsmpg3m" path="res://ui/sound_slider.gd" id="6_swurt"]
+[ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="7_xibwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvkjj"]
+atlas = ExtResource("1_q51pe")
+region = Rect2(17, 113, 14, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_swurt"]
+load_path = "res://.godot/imported/ui.png-ac962acb7fad159cd904d0e5b4e8f472.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xibwf"]
+atlas = SubResource("CompressedTexture2D_swurt")
+region = Rect2(17, 97, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvrop"]
+atlas = ExtResource("1_q51pe")
+region = Rect2(144, 97, 32, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ftnco"]
+texture = SubResource("AtlasTexture_fvrop")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xibwf"]
+load_path = "res://.godot/imported/ui.png-ac962acb7fad159cd904d0e5b4e8f472.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftnco"]
+atlas = SubResource("CompressedTexture2D_xibwf")
+region = Rect2(144, 113, 32, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lcqkp"]
+texture = SubResource("AtlasTexture_ftnco")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="GlobalUI" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_yvkjj")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="background" type="ColorRect" parent="ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.270588, 0.168627, 0.247059, 1)
+
+[node name="base" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fade" type="ColorRect" parent="base"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.596078)
+
+[node name="MarginContainer" type="MarginContainer" parent="base"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 40
+
+[node name="NinePatchRect" type="NinePatchRect" parent="base/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_q51pe")
+region_rect = Rect2(208, 19, 48, 45)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="base/MarginContainer/NinePatchRect"]
+layout_mode = 2
+offset_right = 720.0
+offset_bottom = 460.0
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resolution" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resolution"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="resolutionOptions" type="OptionButton" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("3_tghew")
+script = ExtResource("4_tghew")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resolution" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fullscreen"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="fullscreen" type="CheckBox" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_icons/checked = SubResource("AtlasTexture_yvkjj")
+theme_override_icons/unchecked = SubResource("AtlasTexture_xibwf")
+theme_override_icons/unchecked_disabled = SubResource("AtlasTexture_xibwf")
+button_pressed = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="mastersfx" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Master Sound"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="HSlider" type="HSlider" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("3_tghew")
+max_value = 2.0
+step = 0.1
+value = 1.0
+script = ExtResource("6_swurt")
+bus_name = "Master"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="sfx" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Sound Effects"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="HSlider" type="HSlider" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("3_tghew")
+max_value = 2.0
+step = 0.1
+value = 1.0
+script = ExtResource("6_swurt")
+bus_name = "SFX"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="music" type="Label" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music"
+label_settings = ExtResource("2_wgf1h")
+
+[node name="HSlider" type="HSlider" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("3_tghew")
+max_value = 2.0
+step = 0.1
+value = 1.0
+script = ExtResource("6_swurt")
+bus_name = "Music"
+
+[node name="quit" type="Button" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_xibwf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_ftnco")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lcqkp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
+text = "Quit"
+
+[connection signal="item_selected" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/resolutionOptions" to="." method="_on_resolution_options_item_selected"]
+[connection signal="toggled" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5/fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4/HSlider" method="_on_value_changed"]
+[connection signal="pressed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

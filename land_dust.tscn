@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://c21t2wb3euoto"]
+
+[ext_resource type="Texture2D" uid="uid://ny3ekot37836" path="res://toolkit/effects.png" id="1_8scgn"]
+[ext_resource type="Script" uid="uid://xtnsnrdo422a" path="res://walk_dust.gd" id="2_lsov1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8scgn"]
+atlas = ExtResource("1_8scgn")
+region = Rect2(128, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsov1"]
+atlas = ExtResource("1_8scgn")
+region = Rect2(144, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvh1y"]
+atlas = ExtResource("1_8scgn")
+region = Rect2(160, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylh7d"]
+atlas = ExtResource("1_8scgn")
+region = Rect2(176, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sn4f3"]
+atlas = ExtResource("1_8scgn")
+region = Rect2(192, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whlvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8scgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsov1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvh1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylh7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sn4f3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="land_dust" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_whlvr")
+frame = 4
+frame_progress = 1.0
+script = ExtResource("2_lsov1")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
