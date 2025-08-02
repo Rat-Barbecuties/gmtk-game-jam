@@ -15,7 +15,6 @@ var walk_dust_add = preload("res://walk_dust.tscn")
 
 var move_dir = 0
 var jump_used: bool = false
-
 var has_key: bool = false
 
 func _ready() -> void:

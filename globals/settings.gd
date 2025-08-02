@@ -17,6 +17,9 @@ func _input(event: InputEvent) -> void:
 		paused = !paused
 		
 func scene_transition(scenepath):
+	PositionTracker.positions.clear()
+	PositionTracker.direction.clear()
+	PositionTracker.states.clear()
 	AudioManager.play_sound_non_positional(load("res://player/lowDown.ogg"),0)
 	transition_anim.play("transition")
 	await transition_anim.animation_finished
