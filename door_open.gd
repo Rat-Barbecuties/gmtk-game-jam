@@ -2,6 +2,7 @@ extends Node
 
 @onready var state_chart: StateChart = $"../../.."
 @onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
+@onready var scene_transition_component: SceneTransitionComponent = $"../../../../SceneTransitionComponent"
 
 func _on_open_state_entered() -> void:
 	
@@ -15,4 +16,5 @@ func _on_open_state_exited() -> void:
 
 
 func _on_open_state_processing(delta: float) -> void:
-	pass # Replace with function body.
+	if Input.is_action_just_pressed("use"):
+		scene_transition_component.transition()

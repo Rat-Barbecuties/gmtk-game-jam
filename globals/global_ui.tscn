@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://mdg1u2w0q1i3"]
+[gd_scene load_steps=22 format=3 uid="uid://mdg1u2w0q1i3"]
 
 [ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="1_q51pe"]
 [ext_resource type="Script" uid="uid://cbwdwkf2ifm1b" path="res://globals/settings.gd" id="1_yvkjj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b0lumlv2sj21b" path="res://ui/resolution_options.gd" id="4_tghew"]
 [ext_resource type="Script" uid="uid://lrnq4dsmpg3m" path="res://ui/sound_slider.gd" id="6_swurt"]
 [ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="7_xibwf"]
+[ext_resource type="Shader" uid="uid://c783n1jv28hm6" path="res://globals/transition.gdshader" id="8_fvrop"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvkjj"]
 atlas = ExtResource("1_q51pe")
@@ -43,6 +44,116 @@ expand_margin_left = 10.0
 expand_margin_top = 10.0
 expand_margin_right = 10.0
 expand_margin_bottom = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftnco"]
+shader = ExtResource("8_fvrop")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 50.0
+shader_parameter/pixel_size = 0.01
+shader_parameter/height = -3.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Animation" id="Animation_lcqkp"]
+resource_name = "transition"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transition:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-3.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_fvrop"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transition:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("transition:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("transition:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(920, 540)]
+}
+
+[sub_resource type="Animation" id="Animation_ftnco"]
+resource_name = "transition_end"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("transition:material:shader_parameter/height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.67, -3.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("transition:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.14159]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("transition:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(920, 540)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4suu4"]
+_data = {
+&"RESET": SubResource("Animation_fvrop"),
+&"transition": SubResource("Animation_lcqkp"),
+&"transition_end": SubResource("Animation_ftnco")
+}
 
 [node name="GlobalUI" type="CanvasLayer"]
 process_mode = 3
@@ -223,6 +334,24 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ftnco")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lcqkp")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
 text = "Quit"
+
+[node name="transition" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ftnco")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 920.0
+offset_top = 540.0
+offset_right = 920.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="transition_anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4suu4")
+}
 
 [connection signal="item_selected" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/resolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="toggled" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5/fullscreen" to="." method="_on_fullscreen_toggled"]

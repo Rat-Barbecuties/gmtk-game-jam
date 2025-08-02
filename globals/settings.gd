@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var resolutions: OptionButton = %resolutionOptions
 @onready var pause: Control = $base
+@onready var transition_anim: AnimationPlayer = $transition_anim
 
 var paused = false
 
@@ -14,7 +15,13 @@ func _input(event: InputEvent) -> void:
 			pause.show()
 			get_tree().paused = true
 		paused = !paused
-
+		
+func scene_transition(scenepath):
+	transition_anim.play("transition")
+	await transition_anim.animation_finished
+	get_tree().change_scene_to_file(scenepath)
+	transition_anim.play("transition_end")
+	
 func _on_resolution_options_item_selected(index: int) -> void:
 	pass
 	#var id = resolutions.get_item_text(index)

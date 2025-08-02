@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=4 uid="uid://op58siasrjdh"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_vd23k"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_x7rwe"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_x7rwe"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_lf2mf"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_80cou"]
 [ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="5_xosfc"]
 [ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="6_mbiy8"]
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="7_tweqo"]
 [ext_resource type="PackedScene" uid="uid://bsqiaodj23216" path="res://button.tscn" id="8_mbwna"]
-[ext_resource type="PackedScene" path="res://prompt_area.tscn" id="9_v023s"]
+[ext_resource type="PackedScene" uid="uid://d0bkopksr02va" path="res://prompt_area.tscn" id="9_v023s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("5_xosfc")
