@@ -19,7 +19,7 @@ func _ready() -> void:
 		state_chart._state
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("use") && interact.overlaps_body(Global.player):
+	if interact.overlaps_body(Global.player):
 		if is_locked && Global.player.has_key:
 			state_chart.send_event("open")
 			
