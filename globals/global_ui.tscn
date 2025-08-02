@@ -45,14 +45,14 @@ expand_margin_top = 10.0
 expand_margin_right = 10.0
 expand_margin_bottom = 10.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftnco"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fvrop"]
 shader = ExtResource("8_fvrop")
 shader_parameter/threshold = 0.5
 shader_parameter/smoothness = 0.05
 shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/fg_color = Color(1, 1, 1, 1)
-shader_parameter/invert = false
-shader_parameter/intensity = 1.0
+shader_parameter/invert = true
+shader_parameter/intensity = 0.0
 
 [node name="GlobalUI" type="CanvasLayer"]
 process_mode = 3
@@ -234,16 +234,19 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_lcqkp")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
 text = "Quit"
 
+<<<<<<< Updated upstream
 [node name="impact" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_ftnco")
+=======
+[node name="threshold" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fvrop")
+>>>>>>> Stashed changes
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0.439216)
 
 [connection signal="item_selected" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/resolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="toggled" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer5/fullscreen" to="." method="_on_fullscreen_toggled"]
