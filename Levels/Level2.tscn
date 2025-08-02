@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://op58siasrjdh"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_vd23k"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_x7rwe"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_x7rwe"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_lf2mf"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_80cou"]
 [ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="5_xosfc"]
@@ -608,7 +608,7 @@ physics_layer_0/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[node name="Node2D2" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_vd23k")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
@@ -617,9 +617,8 @@ player = NodePath("player")
 position = Vector2(454, 269)
 script = ExtResource("2_x7rwe")
 
-[node name="door" parent="." node_paths=PackedStringArray("unlock_mechanism") instance=ExtResource("3_lf2mf")]
+[node name="door" parent="." instance=ExtResource("3_lf2mf")]
 position = Vector2(808, 352)
-unlock_mechanism = NodePath("")
 
 [node name="player" parent="." instance=ExtResource("4_80cou")]
 position = Vector2(48, 162)
