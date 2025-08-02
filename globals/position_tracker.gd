@@ -13,7 +13,6 @@ const ARRAY_MAX_SIZE = 700
 ###########
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ghost"):
-		
 		if get_tree().get_first_node_in_group("ghost") != null:
 			var ghost_existing = get_tree().get_first_node_in_group("ghost")
 			ghost_existing.queue_free()
@@ -29,6 +28,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_ghost"):
 		if get_tree().get_first_node_in_group("ghost") != null:
 			var ghost_existing = get_tree().get_first_node_in_group("ghost")
+			ghost_existing.animation_player.play("explode")
+			AudioManager.play_sound(load("res://player/sfx/ghost_dissapear.wav"), ghost_existing.global_position,0)
+			Global.camera.apply_shake()
+			await ghost_existing.animation_player.animation_finished
 			ghost_existing.queue_free()
 			positions.clear()
 			states.clear()

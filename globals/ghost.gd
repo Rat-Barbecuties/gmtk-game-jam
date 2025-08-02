@@ -3,6 +3,7 @@ class_name Ghost
 extends Node2D
 
 @onready var sprite: AnimatedSprite2D = $sprite
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var positions: Array[Vector2]
 var states: Array[String]
@@ -28,8 +29,6 @@ func _process(delta: float) -> void:
 			sprite.flip_h = false
 		global_position = positions[iterator]
 		iterator += 1
-	else:
-		get_tree().create_timer(1).timeout.connect(func(): self.queue_free())
 
 func update_ghost_state(current_state: String):
 	match current_state:

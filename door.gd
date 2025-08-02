@@ -11,8 +11,9 @@ extends Node2D
 @export var unlock_mechanism: Node2D
 
 func _ready() -> void:
-	if !unlock_mechanism.is_connected("activated", unlock_disconnected):
-		unlock_mechanism.connect("activated", unlock_disconnected)
+	if unlock_mechanism != null:
+		if !unlock_mechanism.is_connected("activated", unlock_disconnected):
+			unlock_mechanism.connect("activated", unlock_disconnected)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("use") && interact.overlaps_body(Global.player):

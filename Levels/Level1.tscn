@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=4 uid="uid://c4e8vbhm2pnqr"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_ufevr"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_gmnjr"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_gmnjr"]
 [ext_resource type="Script" uid="uid://cwtn0dwy6j8f0" path="res://door.gd" id="3_qg0tc"]
 [ext_resource type="Texture2D" uid="uid://btt2s3yfk7rgl" path="res://toolkit/animations/animations.png" id="4_13mt1"]
 [ext_resource type="Script" uid="uid://5s40abdygg7f" path="res://component/scene_transition_component.gd" id="5_pp47a"]
@@ -1282,6 +1282,12 @@ position = Vector2(438, 490)
 
 [node name="promptArea" parent="." instance=ExtResource("18_2s4ma")]
 position = Vector2(611, 460)
+text = "You can press [color=red][wave]Q[/wave][/color] to \"loop\" back to the beginning of a level!
+
+Once you loop, you will summon a [color=blue][wave]ghost[/wave][/color] that mimicks your actions on the previous loop, your ghost can interact with the world around it.
+
+You can press  [color=red][wave]R[/wave][/color] to reset the ghost.
+"
 
 [connection signal="state_entered" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_entered"]
 [connection signal="state_exited" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_exited"]

@@ -154,11 +154,6 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_2oxks")
 bbcode_enabled = true
-text = "You can press [color=red][wave]Q[/wave][/color] to \"loop\" back to the beginning of a level!
-
-Once you loop, you will summon a [color=blue][wave]ghost[/wave][/color] that mimicks your actions on the previous loop.
-
-You can press  [color=red][wave]R[/wave][/color] to reset the ghost."
 visible_characters = 0
 visible_ratio = 0.0
 
