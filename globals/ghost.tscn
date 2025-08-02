@@ -206,6 +206,7 @@ size = Vector2(27, 30)
 [sub_resource type="CircleShape2D" id="CircleShape2D_yigq2"]
 
 [node name="ghost" type="CharacterBody2D" groups=["ghost"]]
+collision_layer = 4
 script = ExtResource("1_xpgcu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

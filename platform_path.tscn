@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2ineiirsios1"]
+
+[ext_resource type="Script" uid="uid://eyrbhupls0nu" path="res://Levels/platform_path.gd" id="1_1w2h8"]
+[ext_resource type="PackedScene" uid="uid://dxoefujm084mh" path="res://platform_moving.tscn" id="2_5giok"]
+
+[sub_resource type="Curve2D" id="Curve2D_d8brc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 72, 192, 0, 0, 0, 0, 832, 192, 0, 0, 0, 0, 72, 192, 0, 0, 0, 0, 72, 192)
+}
+point_count = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2h8"]
+size = Vector2(38, 9)
+
+[sub_resource type="Animation" id="Animation_nkn5i"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uj6fh"]
+resource_name = "platformmove"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 10, 19.9901),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.5, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_me3ps"]
+_data = {
+&"RESET": SubResource("Animation_nkn5i"),
+&"platformmove": SubResource("Animation_uj6fh")
+}
+
+[node name="platformPath" type="Path2D"]
+curve = SubResource("Curve2D_d8brc")
+script = ExtResource("1_1w2h8")
+
+[node name="ghostGrabber" parent="." instance=ExtResource("2_5giok")]
+position = Vector2(72, 192)
+collision_layer = 2
+
+[node name="ghostDetect" type="Area2D" parent="."]
+position = Vector2(72, 174)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ghostDetect"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_1w2h8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(72, 192)
+rotation = 3.14159
+progress = 1520.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../../ghostGrabber")
+update_rotation = false
+update_scale = false
+
+[node name="ghostmove" type="RemoteTransform2D" parent="PathFollow2D"]
+position = Vector2(1.57361e-06, 19)
+rotation = 3.14159
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_me3ps")
+}
+
+[connection signal="body_entered" from="ghostDetect" to="." method="_on_ghost_detect_body_entered"]

@@ -34,7 +34,7 @@ window/size/mode=3
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
@@ -88,6 +88,7 @@ reset_ghost={
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="world"
+2d_physics/layer_3="ghost"
 
 [physics]
 
