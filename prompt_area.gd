@@ -5,7 +5,14 @@ extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var float_player: AnimationPlayer = $float
 @onready var float_parent: Node2D = $floatParent
+@onready var tutorial: RichTextLabel = $floatParent/PanelContainer/RichTextLabel
 
+@export_multiline var text: String
+
+
+func _ready() -> void:
+	tutorial.text = text
+	
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		animation_player.play("prompt")
