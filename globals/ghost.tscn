@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cx7nld2iu6lo5"]
+[gd_scene load_steps=23 format=3 uid="uid://cx7nld2iu6lo5"]
 
 [ext_resource type="Script" uid="uid://3tihhui26fsa" path="res://globals/ghost.gd" id="1_xpgcu"]
 [ext_resource type="Texture2D" uid="uid://sap5slbryq1a" path="res://toolkit/sprites/todd.png" id="2_er6ob"]
+[ext_resource type="Script" uid="uid://xqkjgytxp8yw" path="res://globals/headJump.gd" id="3_5egtv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er6ob"]
 atlas = ExtResource("2_er6ob")
@@ -141,6 +142,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_er6ob"]
 size = Vector2(27, 30)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yigq2"]
+
 [node name="ghost" type="CharacterBody2D" groups=["ghost"]]
 script = ExtResource("1_xpgcu")
 
@@ -155,3 +158,17 @@ animation = &"fall"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_er6ob")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_yigq2")
+target_position = Vector2(0, -15)
+margin = 5.0
+max_results = 1
+collide_with_bodies = false
+script = ExtResource("3_5egtv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="ShapeCast2D" method="_on_timer_timeout"]

@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="6_5vw27"]
-[ext_resource type="PackedScene" uid="uid://dqs6n1wc5leel" path="res://button.tscn" id="6_7mycd"]
-[ext_resource type="PackedScene" uid="uid://d0bkopksr02va" path="res://prompt_area.tscn" id="7_272bh"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://bsqiaodj23216" path="res://button.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" path="res://prompt_area.tscn" id="7_272bh"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="9_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("3_h2yge")

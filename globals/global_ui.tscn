@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://b0lumlv2sj21b" path="res://ui/resolution_options.gd" id="4_tghew"]
 [ext_resource type="Script" uid="uid://lrnq4dsmpg3m" path="res://ui/sound_slider.gd" id="6_swurt"]
 [ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="7_xibwf"]
-[ext_resource type="Shader" uid="uid://dbxdnmfmfa05g" path="res://globals/threshold.gdshader" id="8_fvrop"]
+[ext_resource type="Shader" path="res://globals/threshold.gdshader" id="8_fvrop"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvkjj"]
 atlas = ExtResource("1_q51pe")
@@ -235,6 +235,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
 text = "Quit"
 
 [node name="impact" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_ftnco")
 anchors_preset = 15
 anchor_right = 1.0

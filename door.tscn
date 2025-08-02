@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_24eas"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xg3tq"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_quvdd"]
-[ext_resource type="Script" uid="uid://btv1eun0s0lww" path="res://door_closed.gd" id="8_ejk4w"]
+[ext_resource type="Script" path="res://door_closed.gd" id="8_ejk4w"]
 [ext_resource type="Script" uid="uid://cq7qavx7370ak" path="res://door_open.gd" id="9_vqe75"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ba8gm"]
@@ -185,7 +185,7 @@ script = ExtResource("6_xg3tq")
 script = ExtResource("7_quvdd")
 to = NodePath("../../open")
 event = &"open"
-delay_in_seconds = "0.25"
+delay_in_seconds = "0.0"
 
 [node name="closed" type="Node" parent="StateChart/CompoundState/closed"]
 script = ExtResource("8_ejk4w")
@@ -197,7 +197,7 @@ script = ExtResource("6_xg3tq")
 script = ExtResource("7_quvdd")
 to = NodePath("../../closed")
 event = &"close"
-delay_in_seconds = "0.25"
+delay_in_seconds = "0.0"
 
 [node name="open" type="Node" parent="StateChart/CompoundState/open"]
 script = ExtResource("9_vqe75")

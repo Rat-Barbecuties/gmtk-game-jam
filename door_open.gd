@@ -5,9 +5,13 @@ extends Node
 @onready var lock: AnimatedSprite2D = $"../../../../lock"
 
 func _on_open_state_entered() -> void:
-	lock.play("default")
-	lock.visible = false
-	door.play("open")
+	
+	if not lock.is_playing():
+		lock.play("default")
+		lock.visible = false
+	if not door.is_playing():
+		door.play("open")
+	
 
 
 func _on_open_state_exited() -> void:
