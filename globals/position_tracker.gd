@@ -32,6 +32,7 @@ func _input(event: InputEvent) -> void:
 			AudioManager.play_sound(load("res://player/sfx/ghost_dissapear.wav"), ghost_existing.global_position,0)
 			Global.camera.apply_shake()
 			await ghost_existing.animation_player.animation_finished
+			Global.player.global_position = ghost_existing.global_position
 			ghost_existing.queue_free()
 			positions.clear()
 			states.clear()

@@ -33,6 +33,8 @@ func update_input(delta: float):
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("ghost"):
 		state_chart.send_event("loop")
+	if Input.is_action_just_pressed("reset_ghost"):
+		state_chart.send_event("loop")
 		
 	move_dir = (Input.get_axis("move_left", "move_right"))
 	
