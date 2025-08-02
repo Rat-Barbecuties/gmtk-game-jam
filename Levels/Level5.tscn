@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=4 uid="uid://bt7xml6svac8w"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_31wo2"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_w1sat"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_w1sat"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_nijbd"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_cg4ff"]
 [ext_resource type="Texture2D" uid="uid://dsyw0cue78uyk" path="res://toolkit/tilesetsheet_corner.png" id="5_rss6v"]
@@ -940,7 +940,7 @@ sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 sources/0 = SubResource("TileSetAtlasSource_lfbxl")
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[node name="Node2D2" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_31wo2")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
