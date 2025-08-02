@@ -1,19 +1,19 @@
-[gd_scene load_steps=22 format=4 uid="uid://op58siasrjdh"]
+[gd_scene load_steps=22 format=4 uid="uid://b00oi34rwi15w"]
 
-[ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_vd23k"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_x7rwe"]
-[ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_lf2mf"]
-[ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_80cou"]
-[ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="5_xosfc"]
-[ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="6_mbiy8"]
-[ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="7_tweqo"]
-[ext_resource type="PackedScene" uid="uid://bsqiaodj23216" path="res://button.tscn" id="8_mbwna"]
-[ext_resource type="Script" path="res://prompt_area.gd" id="9_lf2mf"]
-[ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="10_80cou"]
-[ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="11_xosfc"]
+[ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_xxxi4"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_4c4gq"]
+[ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_3e7p2"]
+[ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_dxjb0"]
+[ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="5_hx0pg"]
+[ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="6_uyp6w"]
+[ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="7_t21pv"]
+[ext_resource type="PackedScene" uid="uid://bsqiaodj23216" path="res://button.tscn" id="8_xc3xs"]
+[ext_resource type="Script" path="res://prompt_area.gd" id="9_tqo56"]
+[ext_resource type="Texture2D" uid="uid://cf335dbuigxgg" path="res://toolkit/ui.png" id="10_4hxla"]
+[ext_resource type="FontFile" uid="uid://dely1m4tgu2iv" path="res://toolkit/glyphmesss.ttf" id="11_suhnr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
-texture = ExtResource("5_xosfc")
+texture = ExtResource("5_hx0pg")
 1:1/0 = 0
 3:1/0 = 0
 5:1/0 = 0
@@ -321,7 +321,7 @@ texture = ExtResource("5_xosfc")
 19:19/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
-texture = ExtResource("6_mbiy8")
+texture = ExtResource("6_uyp6w")
 1:1/0 = 0
 3:1/0 = 0
 5:1/0 = 0
@@ -614,7 +614,7 @@ sources/2 = SubResource("TileSetAtlasSource_7mycd")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyed"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2oxks"]
-atlas = ExtResource("10_80cou")
+atlas = ExtResource("10_4hxla")
 region = Rect2(80, 79, 48, 49)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p8p75"]
@@ -735,20 +735,20 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
-script = ExtResource("1_vd23k")
+script = ExtResource("1_xxxi4")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(454, 269)
-script = ExtResource("2_x7rwe")
+script = ExtResource("2_4c4gq")
 
-[node name="door" parent="." node_paths=PackedStringArray("unlock_mechanism") instance=ExtResource("3_lf2mf")]
+[node name="door" parent="." node_paths=PackedStringArray("unlock_mechanism") instance=ExtResource("3_3e7p2")]
 position = Vector2(808, 352)
 is_locked = true
 unlock_mechanism = NodePath("../button")
 
-[node name="player" parent="." instance=ExtResource("4_80cou")]
+[node name="player" parent="." instance=ExtResource("4_dxjb0")]
 position = Vector2(48, 162)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -757,15 +757,15 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAAAP//AQANAAIAAAAAAAAAAQANAAIAAAAAAAEAAQANAAIAAAAAAAIAAQANAAIAAAAAAAMAAQANAAIAAAAAAAQAAQANAAIAAAAAAAUAAQANAAIAAAAAAAYAAQANAAIAAAAAAAcAAQANAAIAAAAAAAgAAQANAAIAAAAAAAkAAQANAAIAAAAAAAoAAQANAAIAAAAAAAsAAQANAAIAAAAAAAwAAQANAAIAAAAAAA0AAQANAAIAAAAAAA4AAgANAAIAAAAAABEAAgANAAIAAAAAABIAAgANAAIAAAAAABMAAQANAAIAAAAAABQAAQANAAIAAAAAABcAAQALAAIAAAAAABgAAQALAAIAAAAAABkAAQALAAIAAAAAABoAAQALAAIAAAAAABsAAQALAAIAAAAAABwAAQALAAIAAAAAAB0AAQALAAIAAAAAAB4AAQALAAIAAAAAAB8AAQALAAIAAAAAACAAAQALAAIAAAAAACEAAQALAAIAAAANABYAAgAMAAEAAAAOABYAAgAMAAEAAAAPABYAAgAMAAEAAAAQABYAAgAMAAEAAAARABYAAgAMAAEAAAASABYAAgAMAAEAAAATABYAAgAMAAEAAAADAAYAAQAPAAEAAAADAAcAAQAPAAEAAAADAAgAAQAPAAEAAAADAAkAAQAPAAEAAAADAAoAAQAPAAEAAAADAAsAAQAPAAIAAAALAAYAAQAQAAEAAAALAAcAAQAQAAEAAAALAAgAAQAQAAEAAAALAAkAAQAQAAIAAAAVAAUAAQAPAAEAAAAVAAYAAQAPAAEAAAAVAAcAAQAPAAEAAAAVAAgAAQAPAAEAAAAVAAkAAQAPAAEAAAAVAAoAAQAPAAEAAAAVAAsAAgAPAAIAAAAaAAYAAQAQAAEAAAAaAAcAAQAQAAEAAAAaAAgAAQAQAAEAAAAaAAkAAQAQAAEAAAAaAAoAAQAQAAEAAAAaAAsAAQAQAAIAAAATABUAAgASAAUAAAAcABAAAgALAAIAAAAcAA8AAgALAAIAAAAcAA4AAgALAAIAAAAcAA0AAgALAAIAAAAcAAwAAgALAAIAAAAcAAsAAgALAAIAAAAcAAoAAgALAAIAAAAcAAkAAgALAAIAAAAcAAgAAgALAAIAAAAcAAcAAgALAAIAAAAcAAYAAgALAAIAAAAMABIAAQAMAAEAAAAMABMAAgANAAIAAAAMABQAAgANAAIAAAAMABUAAgANAAIAAAAMABYAAgANAAIAAAAAABUAAgANAAIAAAAAABYAAgANAAIAAAABABEAAQAPAAMAAAABABIAAQAMAAEAAAACABEAAQAUAAMAAAACABIAAQAMAAEAAAADABEAAQAUAAMAAAADABIAAQAMAAEAAAAEABEAAQAUAAMAAAAEABIAAQAMAAEAAAAFABIAAQAMAAEAAAAGABIAAQAMAAEAAAAHABIAAQAMAAEAAAAIABIAAQAMAAEAAAAJABIAAQAMAAEAAAAKABEAAQAQAAMAAAAKABIAAQAMAAEAAAALABIAAQAMAAEAAAAAABAAAgANAAIAAAAAAA8AAgANAAIAAAANABIAAgAOAAEAAAAbABIAAgAMAAEAAAAcABEAAgALAAIAAAAcABIAAgAMAAEAAAAUABIAAgAMAAEAAAAVABIAAgAMAAEAAAAWABIAAgAMAAEAAAAXABIAAgAMAAEAAAAYABIAAgAMAAEAAAAZABIAAgAMAAEAAAAaABIAAgAMAAEAAAAUABMAAgALAAIAAAAUABQAAgALAAIAAAAUABUAAgALAAIAAAAUABYAAgALAAIAAAAVAA8AAgAQAAkAAAAVABAAAgAQAAoAAAAVABEAAgAQAAoAAAAaAA0AAgAQAAsAAAAaAA4AAgAQAAoAAAAaAA8AAgAQAAoAAAAaABAAAgAQAAoAAAAaABEAAgAQAAoAAAAbABEAAgATAAMAAAAYABEAAgATAAMAAAAWABEAAgASAAMAAAAUABEAAgAUAAIAAAA=")
 tile_set = SubResource("TileSet_1bvp3")
 
-[node name="startingPos" parent="." instance=ExtResource("7_tweqo")]
+[node name="startingPos" parent="." instance=ExtResource("7_t21pv")]
 position = Vector2(80, 280)
 
-[node name="button" parent="." instance=ExtResource("8_mbwna")]
+[node name="button" parent="." instance=ExtResource("8_xc3xs")]
 position = Vector2(438, 490)
 
 [node name="promptArea" type="Area2D" parent="."]
-position = Vector2(608, 488)
-script = ExtResource("9_lf2mf")
+position = Vector2(609, 490)
+script = ExtResource("9_tqo56")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="promptArea"]
 shape = SubResource("RectangleShape2D_4gyed")
@@ -789,7 +789,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_p8p75")
 [node name="RichTextLabel" type="RichTextLabel" parent="promptArea/floatParent/PanelContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("11_xosfc")
+theme_override_fonts/normal_font = ExtResource("11_suhnr")
 bbcode_enabled = true
 text = "You can [color=red][wave]Jump[/wave][/color] on your [color=blue][wave]ghost[/wave][/color] for extra height."
 visible_characters = 0
