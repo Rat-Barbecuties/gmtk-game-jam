@@ -2,7 +2,7 @@ extends ShapeCast2D
 
 var jump_dust_add = preload("res://jump_dust.tscn")
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if  is_colliding():
 		if get_collider(0) == Global.player : 
 			AudioManager.play_sound(load("res://player/sfx/jump(3).wav"), self.global_position, 0)

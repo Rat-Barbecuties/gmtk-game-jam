@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=4 uid="uid://c4e8vbhm2pnqr"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_ufevr"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_gmnjr"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_gmnjr"]
 [ext_resource type="Script" uid="uid://cwtn0dwy6j8f0" path="res://door.gd" id="3_qg0tc"]
 [ext_resource type="Texture2D" uid="uid://btt2s3yfk7rgl" path="res://toolkit/animations/animations.png" id="4_13mt1"]
 [ext_resource type="Script" uid="uid://5s40abdygg7f" path="res://component/scene_transition_component.gd" id="5_pp47a"]
@@ -1193,7 +1193,7 @@ sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 sources/0 = SubResource("TileSetAtlasSource_mykqc")
 
-[node name="Node2D3" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[node name="Node2D4" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_ufevr")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
