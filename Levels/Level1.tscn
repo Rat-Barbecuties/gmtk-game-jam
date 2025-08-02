@@ -1285,8 +1285,6 @@ position = Vector2(611, 460)
 text = "You can press [color=red][wave]Q[/wave][/color] to \"loop\" back to the beginning of a level!
 
 Once you loop, you will summon a [color=blue][wave]ghost[/wave][/color] that mimicks your actions on the previous loop, your ghost can interact with the world around it.
-
-You can press  [color=red][wave]R[/wave][/color] to reset the ghost.
 "
 
 [connection signal="state_entered" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_entered"]
