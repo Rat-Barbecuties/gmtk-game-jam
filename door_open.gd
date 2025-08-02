@@ -1,16 +1,12 @@
 extends Node
 
 @onready var state_chart: StateChart = $"../../.."
-@onready var door: AnimatedSprite2D = $"../../../../door"
-@onready var lock: AnimatedSprite2D = $"../../../../lock"
+@onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
 
 func _on_open_state_entered() -> void:
 	
-	if not lock.is_playing():
-		lock.play("default")
-		lock.visible = false
-	if not door.is_playing():
-		door.play("open")
+	if not animation_player.is_playing():
+		animation_player.play("open")
 	
 
 

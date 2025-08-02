@@ -1,12 +1,11 @@
 extends Node
 
-@onready var door: AnimatedSprite2D = $"../../../../door"
-@onready var lock: AnimatedSprite2D = $"../../../../lock"
+@onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
+
 
 func _on_closed_state_entered() -> void:
-	lock.visible=true
-	door.play("open",-1,true)
-	lock.play("default",-1,true)
+	animation_player.play("close")
+	
 
 
 func _on_closed_state_exited() -> void:

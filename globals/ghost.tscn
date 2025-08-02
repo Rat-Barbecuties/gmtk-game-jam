@@ -147,6 +147,16 @@ size = Vector2(27, 30)
 [node name="ghost" type="CharacterBody2D" groups=["ghost"]]
 script = ExtResource("1_xpgcu")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 16
+emission_shape = 1
+emission_sphere_radius = 22.93
+spread = 180.0
+gravity = Vector2(1, -100)
+damping_min = 18.182
+damping_max = 30.303
+color = Color(0, 1, 1, 0.301961)
+
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 1, 1, 0.431373)
 scale = Vector2(2, 2)
@@ -160,8 +170,9 @@ position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_er6ob")
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+position = Vector2(0, -34)
 shape = SubResource("CircleShape2D_yigq2")
-target_position = Vector2(0, -15)
+target_position = Vector2(0, 0)
 margin = 5.0
 max_results = 1
 collide_with_bodies = false
