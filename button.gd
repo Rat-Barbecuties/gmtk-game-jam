@@ -33,8 +33,6 @@ func _on_interact_body_exited(body: Node2D) -> void:
 		##timer.start()
 		pressed = false
 
-
-
 func _on_timer_timeout() -> void:
 	if interact.has_overlapping_bodies():
 		if interact.overlaps_body(Global.player) or interact.overlaps_body(Global.ghost):

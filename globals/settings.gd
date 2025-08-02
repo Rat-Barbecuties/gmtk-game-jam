@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var resolutions: OptionButton = %resolutionOptions
 @onready var pause: Control = $base
+@onready var threshold: ColorRect = $threshold
 
 var paused = false
 

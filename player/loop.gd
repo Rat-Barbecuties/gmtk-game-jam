@@ -5,6 +5,7 @@ extends Node
 
 
 func _on_loop_state_entered() -> void:
+	HitStop.hit_stop(.25,1)
 	AudioManager.play_sound(load("res://player/sfx/timestop.wav"),Global.player.global_position, 0)
 	AudioManager.play_sound(load("res://player/sfx/timestop1.wav"),Global.player.global_position, 0)
 	Global.camera.apply_shake()
@@ -14,8 +15,8 @@ func _on_loop_state_entered() -> void:
 
 
 func _on_loop_state_exited() -> void:
-	pass # Replace with function body.
+	AudioManager.play_sound(load("res://player/sfx/hitHurt(2).wav"),Global.player.global_position, 0)
 
 
 func _on_loop_state_processing(delta: float) -> void:
-	pass # Replace with function body.
+	Global.player.update_velocity(delta)
