@@ -235,7 +235,6 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
 text = "Quit"
 
 [node name="impact" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_ftnco")
 anchors_preset = 15
 anchor_right = 1.0

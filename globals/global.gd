@@ -3,6 +3,9 @@ extends Node
 
 var player
 var ghost
+var camera
+
+var camera_zoom: Vector2 = Vector2.ONE
 
 var resolutions: Dictionary = {
 	"1920x1080":Vector2i(1920,1080),

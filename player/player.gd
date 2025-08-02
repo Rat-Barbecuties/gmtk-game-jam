@@ -26,11 +26,14 @@ func update_velocity(delta:float):
 		velocity.y += gravity * delta
 	move_and_slide()
 	
+	
 func update_input(delta: float):
 	if Input.is_action_just_pressed("jump") && !jump_used:
 		jump_used = true
 		state_chart.send_event("jump")
 		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_pressed("ghost"):
+		state_chart.send_event("loop")
 		
 	move_dir = (Input.get_axis("move_left", "move_right"))
 	
@@ -57,3 +60,6 @@ func create_walk_dust():
 	get_tree().current_scene.add_child(walk_dust)
 	walk_dust.global_position = self.global_position
 	walk_dust.flip_h = sprite.flip_h
+
+func loop():
+	global_position = get_tree().get_first_node_in_group("start").global_position

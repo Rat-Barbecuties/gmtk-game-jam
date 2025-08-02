@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cgrsydkwaw4lp"]
+
+[node name="startingPos" type="Marker2D" groups=["start"]]
