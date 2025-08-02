@@ -1,13 +1,281 @@
-[gd_scene load_steps=12 format=4 uid="uid://op58siasrjdh"]
+[gd_scene load_steps=43 format=4 uid="uid://op58siasrjdh"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_vd23k"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_x7rwe"]
-[ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_lf2mf"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_x7rwe"]
+[ext_resource type="Script" uid="uid://cwtn0dwy6j8f0" path="res://door.gd" id="3_mbwna"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_80cou"]
+[ext_resource type="Texture2D" uid="uid://btt2s3yfk7rgl" path="res://toolkit/animations/animations.png" id="4_v023s"]
+[ext_resource type="Script" uid="uid://5s40abdygg7f" path="res://component/scene_transition_component.gd" id="5_biamp"]
 [ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="5_xosfc"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="6_cch3g"]
 [ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="6_mbiy8"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_l5acx"]
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="7_tweqo"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="8_6dto8"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="9_0dh5q"]
 [ext_resource type="PackedScene" uid="uid://d0bkopksr02va" path="res://prompt_area.tscn" id="9_v023s"]
+[ext_resource type="Script" uid="uid://btv1eun0s0lww" path="res://door_closed.gd" id="10_rxkep"]
+[ext_resource type="Script" uid="uid://cq7qavx7370ak" path="res://door_open.gd" id="11_oo0qn"]
+
+[sub_resource type="Animation" id="Animation_24eas"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("lock:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lock:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_xg3tq"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("lock:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667, 0.333333, 0.4, 0.466667, 0.533333, 0.6, 0.666667, 0.733333, 0.8, 0.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lock:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333334, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ptf7r"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.533333, 0.633333, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("lock:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lock:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.9, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xg3tq"]
+_data = {
+&"RESET": SubResource("Animation_24eas"),
+&"close": SubResource("Animation_xg3tq"),
+&"open": SubResource("Animation_ptf7r")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba8gm"]
+atlas = ExtResource("4_v023s")
+region = Rect2(28, 54, 24, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6xrn"]
+atlas = ExtResource("4_v023s")
+region = Rect2(28, 54, 24, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0phs7"]
+atlas = ExtResource("4_v023s")
+region = Rect2(76, 54, 24, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50cdl"]
+atlas = ExtResource("4_v023s")
+region = Rect2(124, 54, 24, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5njw"]
+atlas = ExtResource("4_v023s")
+region = Rect2(172, 54, 24, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xadh"]
+atlas = ExtResource("4_v023s")
+region = Rect2(220, 54, 24, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6hwww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba8gm")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6xrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0phs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50cdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5njw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xadh")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hwww"]
+atlas = ExtResource("4_v023s")
+region = Rect2(221, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1oua"]
+atlas = ExtResource("4_v023s")
+region = Rect2(238, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptf7r"]
+atlas = ExtResource("4_v023s")
+region = Rect2(255, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24eas"]
+atlas = ExtResource("4_v023s")
+region = Rect2(272, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg3tq"]
+atlas = ExtResource("4_v023s")
+region = Rect2(289, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quvdd"]
+atlas = ExtResource("4_v023s")
+region = Rect2(306, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejk4w"]
+atlas = ExtResource("4_v023s")
+region = Rect2(323, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqe75"]
+atlas = ExtResource("4_v023s")
+region = Rect2(340, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nm82"]
+atlas = ExtResource("4_v023s")
+region = Rect2(357, 144, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvkv3"]
+atlas = ExtResource("4_v023s")
+region = Rect2(374, 144, 17, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5esjk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hwww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1oua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptf7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24eas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg3tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quvdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejk4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqe75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nm82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvkv3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0phs7"]
+size = Vector2(30, 47)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("5_xosfc")
@@ -617,8 +885,66 @@ player = NodePath("player")
 position = Vector2(454, 269)
 script = ExtResource("2_x7rwe")
 
-[node name="door" parent="." instance=ExtResource("3_lf2mf")]
+[node name="door" type="Node2D" parent="."]
 position = Vector2(808, 352)
+script = ExtResource("3_mbwna")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="door"]
+libraries = {
+&"": SubResource("AnimationLibrary_xg3tq")
+}
+
+[node name="door" type="AnimatedSprite2D" parent="door"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_6hwww")
+animation = &"open"
+
+[node name="lock" type="AnimatedSprite2D" parent="door"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5esjk")
+
+[node name="SceneTransitionComponent" type="Node2D" parent="door"]
+script = ExtResource("5_biamp")
+scene_path_to_transition_to = "uid://cwyv4mv06fqpy"
+metadata/_custom_type_script = "uid://5s40abdygg7f"
+
+[node name="interact" type="Area2D" parent="door"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door/interact"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0phs7")
+
+[node name="StateChart" type="Node" parent="door"]
+script = ExtResource("6_cch3g")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="door/StateChart"]
+script = ExtResource("7_l5acx")
+initial_state = NodePath("open")
+
+[node name="closed" type="Node" parent="door/StateChart/CompoundState"]
+script = ExtResource("8_6dto8")
+
+[node name="toOpen" type="Node" parent="door/StateChart/CompoundState/closed"]
+script = ExtResource("9_0dh5q")
+to = NodePath("../../open")
+event = &"open"
+delay_in_seconds = "0.0"
+
+[node name="closed" type="Node" parent="door/StateChart/CompoundState/closed"]
+script = ExtResource("10_rxkep")
+
+[node name="open" type="Node" parent="door/StateChart/CompoundState"]
+script = ExtResource("8_6dto8")
+
+[node name="toClosed" type="Node" parent="door/StateChart/CompoundState/open"]
+script = ExtResource("9_0dh5q")
+to = NodePath("../../closed")
+event = &"close"
+delay_in_seconds = "0.0"
+
+[node name="open" type="Node" parent="door/StateChart/CompoundState/open"]
+script = ExtResource("11_oo0qn")
 
 [node name="player" parent="." instance=ExtResource("4_80cou")]
 position = Vector2(48, 162)
@@ -635,3 +961,10 @@ position = Vector2(80, 280)
 [node name="promptArea" parent="." instance=ExtResource("9_v023s")]
 position = Vector2(292, 362)
 text = "You can [color=red][wave]Jump[/wave][/color] on your [color=blue][wave]ghost[/wave][/color] for extra height."
+
+[connection signal="state_entered" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_entered"]
+[connection signal="state_exited" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_exited"]
+[connection signal="state_processing" from="door/StateChart/CompoundState/closed" to="door/StateChart/CompoundState/closed/closed" method="_on_closed_state_processing"]
+[connection signal="state_entered" from="door/StateChart/CompoundState/open" to="door/StateChart/CompoundState/open/open" method="_on_open_state_entered"]
+[connection signal="state_exited" from="door/StateChart/CompoundState/open" to="door/StateChart/CompoundState/open/open" method="_on_open_state_exited"]
+[connection signal="state_processing" from="door/StateChart/CompoundState/open" to="door/StateChart/CompoundState/open/open" method="_on_open_state_processing"]

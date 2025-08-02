@@ -4,7 +4,8 @@ extends Node
 
 
 func _on_closed_state_entered() -> void:
-	animation_player.play("close")
+	if not animation_player.is_playing():
+		animation_player.play("close")
 	
 
 

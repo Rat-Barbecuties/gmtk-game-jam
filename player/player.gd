@@ -37,7 +37,7 @@ func update_input(delta: float):
 	move_dir = (Input.get_axis("move_left", "move_right"))
 	
 	if move_dir == -1:
-		velocity.x = move_dir * SPEED
+		velocity.x = move_dir * SPEED 
 		sprite.flip_h = true
 		
 	if move_dir == 1:

@@ -303,7 +303,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="CompoundState" type="Node" parent="StateChart"]
 script = ExtResource("5_24eas")
-initial_state = NodePath("closed")
+initial_state = NodePath("open")
 
 [node name="closed" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("6_xg3tq")
