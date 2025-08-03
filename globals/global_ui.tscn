@@ -245,6 +245,10 @@ texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("3_tghew")
+selected = 0
+item_count = 1
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
 script = ExtResource("4_tghew")
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
