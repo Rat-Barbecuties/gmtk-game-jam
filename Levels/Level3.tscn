@@ -876,7 +876,7 @@ physics_layer_0/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 
-[node name="Node2D3" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[node name="Node2D4" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_xxxi4")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
