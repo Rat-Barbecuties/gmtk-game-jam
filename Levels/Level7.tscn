@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=4 uid="uid://x5m2ydu75xjj"]
+[gd_scene load_steps=19 format=4 uid="uid://dtixohtk24uw4"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_4b247"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_o4d3g"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_o4d3g"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_isovy"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_g3tdx"]
 [ext_resource type="Texture2D" uid="uid://50x2gco5pd1m" path="res://Levels/tilesetsheet (2).webp" id="5_vnimv"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d2ineiirsios1" path="res://platform_path.tscn" id="9_y8jc6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4375"]
-size = Vector2(6, 1)
+size = Vector2(5, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4b247"]
 size = Vector2(5, 76)
@@ -998,7 +998,7 @@ scale = Vector2(16, 16)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ghostwall3"]
-position = Vector2(-9, 0.5)
+position = Vector2(-9.5, 0.5)
 shape = SubResource("RectangleShape2D_i4375")
 
 [node name="ghostwall2" type="StaticBody2D" parent="."]

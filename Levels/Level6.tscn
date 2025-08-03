@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://jsimx42m0rc"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_sdhjx"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_i4375"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_i4375"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_4b247"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_o4d3g"]
 [ext_resource type="Texture2D" uid="uid://50x2gco5pd1m" path="res://Levels/tilesetsheet (2).webp" id="5_me3ps"]
@@ -972,14 +972,14 @@ sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 sources/0 = SubResource("TileSetAtlasSource_lfbxl")
 
-[sub_resource type="Curve2D" id="Curve2D_me3ps"]
+[sub_resource type="Curve2D" id="Curve2D_vmtie"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 792, -32, 0, 0, 0, 0, 40, -32, 0, 0, 0, 0, 808, -32)
+"points": PackedVector2Array(0, 0, 0, 0, 72, 192, 0, 0, 0, 0, 816, 192)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2h8"]
-size = Vector2(38, 9)
+size = Vector2(120, 10)
 
 [sub_resource type="Animation" id="Animation_nkn5i"]
 length = 0.001
@@ -1008,10 +1008,10 @@ tracks/0/path = NodePath("PathFollow2D:progress_ratio")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 10, 19.9901),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 0.5, 1.0]
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_me3ps"]
@@ -1054,14 +1054,25 @@ tile_set = SubResource("TileSet_1bvp3")
 [node name="startingPos" parent="." instance=ExtResource("8_xoiav")]
 position = Vector2(34, 344)
 
+[node name="promptArea" parent="." instance=ExtResource("10_nkn5i")]
+position = Vector2(128, 360)
+text = "Pressing [color=red][wave]R[/wave][/color] allows you to swap positions with your current ghost, but also destroys it in the process.
+
+An object or area with the blue candle will trap your ghost.
+
+Switches will keep an object active as long as they are on."
+
+[node name="switchArea" parent="." instance=ExtResource("11_me3ps")]
+position = Vector2(185, 362)
+
 [node name="platformPath" type="Path2D" parent="." node_paths=PackedStringArray("active_mechanism")]
-position = Vector2(24, 328)
-curve = SubResource("Curve2D_me3ps")
+position = Vector2(0, 128)
+curve = SubResource("Curve2D_vmtie")
 script = ExtResource("9_vmtie")
 active_mechanism = NodePath("../switchArea")
 
 [node name="ghostGrabber" parent="platformPath" instance=ExtResource("10_sraex")]
-position = Vector2(807.282, -32)
+position = Vector2(72, 192)
 collision_layer = 2
 
 [node name="ghostDetect" type="Area2D" parent="platformPath/ghostGrabber"]
@@ -1073,8 +1084,7 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_1w2h8")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="platformPath"]
-position = Vector2(807.282, -32)
-progress = 1519.1
+position = Vector2(72, 192)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
 remote_path = NodePath("../../ghostGrabber")
@@ -1082,7 +1092,7 @@ update_rotation = false
 update_scale = false
 
 [node name="ghostmove" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
-position = Vector2(0.796343, -15.8342)
+position = Vector2(0.00415529, -19)
 rotation = 3.14159
 update_rotation = false
 update_scale = false
@@ -1091,17 +1101,6 @@ update_scale = false
 libraries = {
 &"": SubResource("AnimationLibrary_me3ps")
 }
-
-[node name="promptArea" parent="." instance=ExtResource("10_nkn5i")]
-position = Vector2(128, 360)
-text = "Pressing [color=red][wave]R[/wave][/color] allows you to swap positions with your current ghost, but also destroys it in the process.
-
-An object or area with the blue candle will trap your ghost.
-
-Switches will keep an object active as long as they are on."
-
-[node name="switchArea" parent="." instance=ExtResource("11_me3ps")]
-position = Vector2(185, 362)
 
 [connection signal="body_entered" from="platformPath/ghostGrabber/ghostDetect" to="platformPath" method="_on_ghost_detect_body_entered"]
 [connection signal="body_exited" from="platformPath/ghostGrabber/ghostDetect" to="platformPath" method="_on_ghost_detect_body_exited"]

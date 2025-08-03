@@ -1115,7 +1115,7 @@ shape = SubResource("RectangleShape2D_vrj02")
 [node name="PathFollow2D" type="PathFollow2D" parent="platformPath"]
 position = Vector2(826, 416)
 rotation = -1.5708
-progress = 0.00089094
+progress = 0.000890939
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
 remote_path = NodePath("../../ghostGrabber")

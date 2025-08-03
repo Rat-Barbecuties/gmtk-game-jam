@@ -17,8 +17,9 @@ func _ready() -> void:
 
 func _on_ghost_detect_body_entered(body: Node2D) -> void:
 	if body is Ghost:
-		body.reparent(get_parent())
+		
 		ghostmove.remote_path = body.get_path()
+		body.reparent(get_parent())
 		body.stop = true
 
 func set_active(value: bool):
@@ -35,8 +36,8 @@ func set_active(value: bool):
 	
 
 
-func _on_ghost_detect_body_exited(body: Node2D) -> void:
-	if body is Ghost:
-		body.reparent(get_tree().current_scene)
-		ghostmove.remote_path = ""
-		body.stop = false
+#func _on_ghost_detect_body_exited(body: Node2D) -> void:
+	#if body is Ghost:
+		#body.reparent(get_tree().current_scene)
+		#ghostmove.remote_path = ""
+		#body.stop = false
