@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cbbjfcel7sxqe"]
+[gd_scene load_steps=26 format=4 uid="uid://cbbjfcel7sxqe"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_mu778"]
 [ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_uuuni"]
@@ -976,7 +976,7 @@ sources/0 = SubResource("TileSetAtlasSource_lfbxl")
 
 [sub_resource type="Curve2D" id="Curve2D_l7ouy"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 832, 415, 0, 0, 0, 0, 832, 240)
+"points": PackedVector2Array(0, 0, 0, 0, 826, 416, 0, 0, 0, 0, 826, 256)
 }
 point_count = 2
 
@@ -1023,12 +1023,18 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_mu778"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 834, 413, 0, 0, 0, 0, 442, 413)
+"points": PackedVector2Array(0, 0, 0, 0, 834, 413, 0, 0, 0, 0, 351, 413)
 }
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mu778"]
 size = Vector2(120, 10)
+
+[sub_resource type="Curve2D" id="Curve2D_uuuni"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 829, 201, 0, 0, 0, 0, 829, 401)
+}
+point_count = 2
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_mu778")
@@ -1081,7 +1087,7 @@ script = ExtResource("9_s35pp")
 active_mechanism = NodePath("../switchArea")
 
 [node name="ghostGrabber" parent="platformPath" instance=ExtResource("10_mu778")]
-position = Vector2(832, 411.119)
+position = Vector2(826, 412.07)
 collision_layer = 2
 
 [node name="ghostDetect" type="Area2D" parent="platformPath/ghostGrabber"]
@@ -1093,9 +1099,9 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_vrj02")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="platformPath"]
-position = Vector2(832, 415)
+position = Vector2(826, 416)
 rotation = -1.5708
-progress = 0.000974465
+progress = 0.00089094
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
 remote_path = NodePath("../../ghostGrabber")
@@ -1121,7 +1127,7 @@ active_mechanism = NodePath("../switchArea")
 activate_on_start = true
 
 [node name="ghostGrabber" parent="platformPath2" instance=ExtResource("10_mu778")]
-position = Vector2(830.003, 413)
+position = Vector2(830.101, 413)
 collision_layer = 2
 
 [node name="ghostDetect" type="Area2D" parent="platformPath2/ghostGrabber"]
@@ -1135,7 +1141,7 @@ shape = SubResource("RectangleShape2D_mu778")
 [node name="PathFollow2D" type="PathFollow2D" parent="platformPath2"]
 position = Vector2(833.999, 413)
 rotation = 3.14159
-progress = 0.0021828
+progress = 0.00268952
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath2/PathFollow2D"]
 remote_path = NodePath("../../ghostGrabber")
@@ -1153,9 +1159,49 @@ libraries = {
 &"": SubResource("AnimationLibrary_iobj3")
 }
 
+[node name="platformPath3" type="Path2D" parent="." node_paths=PackedStringArray("active_mechanism")]
+position = Vector2(-685, -113)
+curve = SubResource("Curve2D_uuuni")
+script = ExtResource("9_s35pp")
+active_mechanism = NodePath("../switchArea")
+
+[node name="ghostGrabber" parent="platformPath3" instance=ExtResource("10_mu778")]
+position = Vector2(829, 204.845)
+collision_layer = 2
+
+[node name="ghostDetect" type="Area2D" parent="platformPath3/ghostGrabber"]
+position = Vector2(0, -18.1608)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platformPath3/ghostGrabber/ghostDetect"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_vrj02")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="platformPath3"]
+position = Vector2(829, 201.001)
+rotation = 1.5708
+progress = 0.00111367
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath3/PathFollow2D"]
+remote_path = NodePath("../../ghostGrabber")
+update_rotation = false
+update_scale = false
+
+[node name="ghostmove" type="RemoteTransform2D" parent="platformPath3/PathFollow2D"]
+position = Vector2(-19.8446, 1.65942e-06)
+rotation = 3.14159
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platformPath3"]
+libraries = {
+&"": SubResource("AnimationLibrary_iobj3")
+}
+
 [node name="switchArea" parent="." instance=ExtResource("11_ctksp")]
 position = Vector2(872, 440)
 rotation = -1.5708
 
 [connection signal="body_entered" from="platformPath/ghostGrabber/ghostDetect" to="platformPath" method="_on_ghost_detect_body_entered"]
 [connection signal="body_entered" from="platformPath2/ghostGrabber/ghostDetect" to="platformPath2" method="_on_ghost_detect_body_entered"]
+[connection signal="body_entered" from="platformPath3/ghostGrabber/ghostDetect" to="platformPath3" method="_on_ghost_detect_body_entered"]
