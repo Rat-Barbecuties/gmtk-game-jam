@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://1wv3mota4ey0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odxmo"]
-size = Vector2(9.5, 159.5)
+size = Vector2(49, 8)
 
 [node name="ghostwall" type="StaticBody2D"]
 collision_layer = 2

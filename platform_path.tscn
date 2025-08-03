@@ -10,7 +10,7 @@ _data = {
 point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2h8"]
-size = Vector2(38, 9)
+size = Vector2(120, 10)
 
 [sub_resource type="Animation" id="Animation_nkn5i"]
 length = 0.001
@@ -56,14 +56,14 @@ curve = SubResource("Curve2D_d8brc")
 script = ExtResource("1_1w2h8")
 
 [node name="ghostGrabber" parent="." instance=ExtResource("2_5giok")]
-position = Vector2(72.7238, 192)
+position = Vector2(72.7195, 192)
 collision_layer = 2
 
-[node name="ghostDetect" type="Area2D" parent="."]
-position = Vector2(72, 174)
+[node name="ghostDetect" type="Area2D" parent="ghostGrabber"]
+position = Vector2(-0.719452, -18)
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ghostDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ghostGrabber/ghostDetect"]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_1w2h8")
 
@@ -88,4 +88,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_me3ps")
 }
 
-[connection signal="body_entered" from="ghostDetect" to="." method="_on_ghost_detect_body_entered"]
+[connection signal="body_entered" from="ghostGrabber/ghostDetect" to="." method="_on_ghost_detect_body_entered"]
+[connection signal="body_exited" from="ghostGrabber/ghostDetect" to="." method="_on_ghost_detect_body_exited"]

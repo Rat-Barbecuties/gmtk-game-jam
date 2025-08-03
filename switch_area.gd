@@ -4,7 +4,7 @@ signal activated(value:bool)
 
 @onready var sprite: AnimatedSprite2D = $sprite
 
-var pressed: bool = false 
+var pressed: bool = false
 
 func update_pressed(value:bool):
 	emit_signal("activated", value)
