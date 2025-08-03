@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=4 uid="uid://dtixohtk24uw4"]
+[gd_scene load_steps=25 format=4 uid="uid://dtixohtk24uw4"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_4b247"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_o4d3g"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_o4d3g"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_isovy"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_g3tdx"]
 [ext_resource type="Texture2D" uid="uid://50x2gco5pd1m" path="res://Levels/tilesetsheet (2).webp" id="5_vnimv"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="7_f5h1b"]
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="8_1u0si"]
 [ext_resource type="PackedScene" uid="uid://d2ineiirsios1" path="res://platform_path.tscn" id="9_y8jc6"]
+[ext_resource type="Script" uid="uid://eyrbhupls0nu" path="res://Levels/platform_path.gd" id="10_4b247"]
+[ext_resource type="PackedScene" uid="uid://dxoefujm084mh" path="res://platform_moving.tscn" id="11_o4d3g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4375"]
 size = Vector2(5, 1)
@@ -977,15 +979,57 @@ sources/0 = SubResource("TileSetAtlasSource_lfbxl")
 
 [sub_resource type="Curve2D" id="Curve2D_i4375"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 72, 192, 0, 0, 0, 0, 72, 296, 0, 0, 0, 0, 72, 192)
+"points": PackedVector2Array(0, 0, 0, 0, 72, 296, 0, 0, 0, 0, 72, 192)
 }
-point_count = 3
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2h8"]
+size = Vector2(120, 10)
+
+[sub_resource type="Animation" id="Animation_nkn5i"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uj6fh"]
+resource_name = "platformmove"
+length = 10.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_me3ps"]
+_data = {
+&"RESET": SubResource("Animation_nkn5i"),
+&"platformmove": SubResource("Animation_uj6fh")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_4b247"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 72, 192, 0, 0, 0, 0, 576, 192, 0, 0, 0, 0, 72, 192)
+"points": PackedVector2Array(0, 0, 0, 0, 576, 192, 0, 0, 0, 0, 72, 192)
 }
-point_count = 3
+point_count = 2
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_4b247")
@@ -1039,16 +1083,87 @@ tile_set = SubResource("TileSet_1bvp3")
 [node name="startingPos" parent="." instance=ExtResource("8_1u0si")]
 position = Vector2(648, 496)
 
-[node name="platformPath3" parent="." instance=ExtResource("9_y8jc6")]
+[node name="platformPath3" type="Path2D" parent="."]
 position = Vector2(720, 40)
 curve = SubResource("Curve2D_i4375")
+script = ExtResource("10_4b247")
 activate_on_start = true
+
+[node name="ghostGrabber" parent="platformPath3" instance=ExtResource("11_o4d3g")]
+position = Vector2(72, 296)
+collision_layer = 2
+
+[node name="ghostDetect" type="Area2D" parent="platformPath3/ghostGrabber"]
+position = Vector2(-0.719452, -18)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platformPath3/ghostGrabber/ghostDetect"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_1w2h8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="platformPath3"]
+position = Vector2(72, 296)
+rotation = -1.5708
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath3/PathFollow2D"]
+remote_path = NodePath("../../ghostGrabber")
+update_rotation = false
+update_scale = false
+
+[node name="ghostmove" type="RemoteTransform2D" parent="platformPath3/PathFollow2D"]
+position = Vector2(1.57361e-06, -20)
+rotation = 3.14159
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platformPath3"]
+libraries = {
+&"": SubResource("AnimationLibrary_me3ps")
+}
 
 [node name="platformPath" parent="." instance=ExtResource("9_y8jc6")]
 position = Vector2(32, 168)
 activate_on_start = true
 
-[node name="platformPath2" parent="." instance=ExtResource("9_y8jc6")]
+[node name="platformPath2" type="Path2D" parent="."]
 position = Vector2(200, -16)
 curve = SubResource("Curve2D_4b247")
+script = ExtResource("10_4b247")
 activate_on_start = true
+
+[node name="ghostGrabber" parent="platformPath2" instance=ExtResource("11_o4d3g")]
+position = Vector2(359.741, 192)
+collision_layer = 2
+
+[node name="ghostDetect" type="Area2D" parent="platformPath2/ghostGrabber"]
+position = Vector2(-0.719452, -18)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platformPath2/ghostGrabber/ghostDetect"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_1w2h8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="platformPath2"]
+position = Vector2(576, 192)
+rotation = 3.14159
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath2/PathFollow2D"]
+remote_path = NodePath("../../ghostGrabber")
+update_rotation = false
+update_scale = false
+
+[node name="ghostmove" type="RemoteTransform2D" parent="platformPath2/PathFollow2D"]
+position = Vector2(1.57361e-06, -20)
+rotation = 3.14159
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platformPath2"]
+libraries = {
+&"": SubResource("AnimationLibrary_me3ps")
+}
+
+[connection signal="body_entered" from="platformPath3/ghostGrabber/ghostDetect" to="platformPath3" method="_on_ghost_detect_body_entered"]
+[connection signal="body_exited" from="platformPath3/ghostGrabber/ghostDetect" to="platformPath3" method="_on_ghost_detect_body_exited"]
+[connection signal="body_entered" from="platformPath2/ghostGrabber/ghostDetect" to="platformPath2" method="_on_ghost_detect_body_entered"]
+[connection signal="body_exited" from="platformPath2/ghostGrabber/ghostDetect" to="platformPath2" method="_on_ghost_detect_body_exited"]

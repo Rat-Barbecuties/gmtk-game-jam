@@ -1,7 +1,7 @@
 [gd_scene load_steps=45 format=4 uid="uid://op58siasrjdh"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_vd23k"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_x7rwe"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_x7rwe"]
 [ext_resource type="Script" uid="uid://cwtn0dwy6j8f0" path="res://door.gd" id="3_mbwna"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_80cou"]
 [ext_resource type="Texture2D" uid="uid://btt2s3yfk7rgl" path="res://toolkit/animations/animations.png" id="4_v023s"]
