@@ -29,6 +29,16 @@ func scene_transition(scenepath):
 	get_tree().change_scene_to_file(scenepath)
 	transition_anim.play("transition_end")
 	
+func restart():
+	PositionTracker.positions.clear()
+	PositionTracker.direction.clear()
+	PositionTracker.states.clear()
+	AudioManager.play_sound_non_positional(load("res://player/lowDown.ogg"),0)
+	transition_anim.play("transition")
+	await transition_anim.animation_finished
+	get_tree().reload_current_scene()
+	transition_anim.play("transition_end")
+	
 func _on_resolution_options_item_selected(index: int) -> void:
 	var id = resolutions.get_item_text(index)
 	get_window().set_size(Global.resolutions[id])

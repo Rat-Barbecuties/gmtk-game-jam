@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvikrojuesy04"]
+[gd_scene load_steps=28 format=3 uid="uid://bvikrojuesy04"]
 
 [ext_resource type="Script" uid="uid://brs8tw7841nh" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dyij10n2xefn7" path="res://component/health_component.gd" id="2_rgyib"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://1dlhe61r010g" path="res://player/loop.gd" id="14_kb6p2"]
 [ext_resource type="Script" uid="uid://ca3i6efgjiy5h" path="res://player/door.gd" id="15_wodsf"]
 [ext_resource type="Script" uid="uid://dvngwvyis060b" path="res://player/falling.gd" id="16_32hag"]
+[ext_resource type="Script" uid="uid://crli5kvgxke8c" path="res://player/death.gd" id="16_tqiix"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kb6p2"]
 shader = ExtResource("3_yllr7")
@@ -203,9 +204,25 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_x7c3f"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [104, 105, 106, 107, 108, 109]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_65viv"]
 _data = {
 &"RESET": SubResource("Animation_c35mf"),
+&"death": SubResource("Animation_x7c3f"),
 &"door": SubResource("Animation_kb6p2"),
 &"fall": SubResource("Animation_65viv"),
 &"idle": SubResource("Animation_32hag"),
@@ -224,7 +241,7 @@ script = ExtResource("1_oul6g")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_rgyib")
-max_health = 100.0
+max_health = 1.0
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
 pitch_scale = 1.49
@@ -250,6 +267,7 @@ position = Vector2(0.75, 0.25)
 shape = SubResource("RectangleShape2D_kb6p2")
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_mask = 2
 script = ExtResource("3_yw30f")
 health_component = NodePath("../HealthComponent")
 
@@ -299,6 +317,12 @@ to = NodePath("../../door")
 event = &"door"
 delay_in_seconds = "0.0"
 
+[node name="toDeath" type="Node" parent="StateChart/CompoundState/idle"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../death")
+event = &"death"
+delay_in_seconds = "0.0"
+
 [node name="idle" type="Node" parent="StateChart/CompoundState/idle"]
 script = ExtResource("9_2ieo8")
 
@@ -335,6 +359,12 @@ to = NodePath("../../door")
 event = &"door"
 delay_in_seconds = "0.0"
 
+[node name="toDeath2" type="Node" parent="StateChart/CompoundState/move"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../death")
+event = &"death"
+delay_in_seconds = "0.0"
+
 [node name="moving" type="Node" parent="StateChart/CompoundState/move"]
 script = ExtResource("10_ebec5")
 
@@ -357,6 +387,12 @@ delay_in_seconds = "0.0"
 script = ExtResource("8_ebec5")
 to = NodePath("../../door")
 event = &"door"
+delay_in_seconds = "0.0"
+
+[node name="toDeath3" type="Node" parent="StateChart/CompoundState/jump"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../death")
+event = &"death"
 delay_in_seconds = "0.0"
 
 [node name="jumping" type="Node" parent="StateChart/CompoundState/jump"]
@@ -389,6 +425,12 @@ to = NodePath("../../door")
 event = &"door"
 delay_in_seconds = "0.0"
 
+[node name="toDeath4" type="Node" parent="StateChart/CompoundState/falling"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../death")
+event = &"death"
+delay_in_seconds = "0.0"
+
 [node name="falling" type="Node" parent="StateChart/CompoundState/falling"]
 script = ExtResource("16_32hag")
 
@@ -410,6 +452,19 @@ script = ExtResource("7_2ieo8")
 [node name="door" type="Node" parent="StateChart/CompoundState/door"]
 script = ExtResource("15_wodsf")
 
+[node name="death" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("7_2ieo8")
+
+[node name="toIdle" type="Node" parent="StateChart/CompoundState/death"]
+script = ExtResource("8_ebec5")
+to = NodePath("../../idle")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[node name="death" type="Node" parent="StateChart/CompoundState/death"]
+script = ExtResource("16_tqiix")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="state_entered" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_exited"]
 [connection signal="state_processing" from="StateChart/CompoundState/idle" to="StateChart/CompoundState/idle/idle" method="_on_idle_state_processing"]
@@ -428,3 +483,6 @@ script = ExtResource("15_wodsf")
 [connection signal="state_entered" from="StateChart/CompoundState/door" to="StateChart/CompoundState/door/door" method="_on_door_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/door" to="StateChart/CompoundState/door/door" method="_on_door_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/CompoundState/door" to="StateChart/CompoundState/door/door" method="_on_door_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/death" to="StateChart/CompoundState/death/death" method="_on_death_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/death" to="StateChart/CompoundState/death/death" method="_on_death_state_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/death" to="StateChart/CompoundState/death/death" method="_on_death_state_processing"]
