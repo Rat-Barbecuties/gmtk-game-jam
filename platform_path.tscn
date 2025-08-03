@@ -68,7 +68,7 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_1w2h8")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(72.7238, 192)
+position = Vector2(72.7195, 192)
 rotation = 3.14159
 progress = 1519.1
 

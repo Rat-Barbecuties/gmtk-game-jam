@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=4 uid="uid://jsimx42m0rc"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_sdhjx"]
-[ext_resource type="Script" path="res://camera_shake.gd" id="2_i4375"]
+[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_i4375"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_4b247"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_o4d3g"]
 [ext_resource type="Texture2D" uid="uid://50x2gco5pd1m" path="res://Levels/tilesetsheet (2).webp" id="5_me3ps"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="8_xoiav"]
 [ext_resource type="PackedScene" uid="uid://d2ineiirsios1" path="res://platform_path.tscn" id="9_f5h1b"]
 [ext_resource type="PackedScene" uid="uid://d0bkopksr02va" path="res://prompt_area.tscn" id="10_nkn5i"]
-[ext_resource type="PackedScene" uid="uid://bsqiaodj23216" path="res://button.tscn" id="11_me3ps"]
+[ext_resource type="PackedScene" uid="uid://b0ujepoioi2u4" path="res://switch_area.tscn" id="11_me3ps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odxmo"]
 size = Vector2(9.5, 177.5)
@@ -1007,7 +1007,7 @@ position = Vector2(34, 344)
 
 [node name="platformPath" parent="." node_paths=PackedStringArray("active_mechanism") instance=ExtResource("9_f5h1b")]
 position = Vector2(0, 120)
-active_mechanism = NodePath("../button")
+active_mechanism = NodePath("../switchArea")
 
 [node name="promptArea" parent="." instance=ExtResource("10_nkn5i")]
 position = Vector2(128, 360)
@@ -1015,5 +1015,5 @@ text = "Pressing [color=red][wave]R[/wave][/color] allows you to swap positions 
 
 An object or area with the blue candle will trap your ghost."
 
-[node name="button" parent="." instance=ExtResource("11_me3ps")]
-position = Vector2(184, 362)
+[node name="switchArea" parent="." instance=ExtResource("11_me3ps")]
+position = Vector2(185, 362)

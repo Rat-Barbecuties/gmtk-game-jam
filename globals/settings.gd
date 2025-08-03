@@ -6,7 +6,6 @@ extends CanvasLayer
 
 var paused = false
 
-
 func _ready() -> void:
 	var id = resolutions.get_item_text(0)
 	get_window().set_size(Global.resolutions[id])
