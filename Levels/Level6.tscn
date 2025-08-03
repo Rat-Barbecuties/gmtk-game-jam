@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=4 uid="uid://jsimx42m0rc"]
+[gd_scene load_steps=23 format=4 uid="uid://jsimx42m0rc"]
 
 [ext_resource type="Script" uid="uid://b3rqvlq0owqpv" path="res://level.gd" id="1_sdhjx"]
-[ext_resource type="Script" uid="uid://c5h5f17ym4gyn" path="res://camera_shake.gd" id="2_i4375"]
+[ext_resource type="Script" path="res://camera_shake.gd" id="2_i4375"]
 [ext_resource type="PackedScene" uid="uid://sdcjx3brue1x" path="res://door.tscn" id="3_4b247"]
 [ext_resource type="PackedScene" uid="uid://bvikrojuesy04" path="res://player/player.tscn" id="4_o4d3g"]
 [ext_resource type="Texture2D" uid="uid://50x2gco5pd1m" path="res://Levels/tilesetsheet (2).webp" id="5_me3ps"]
 [ext_resource type="Texture2D" uid="uid://cx66bb1n2df4c" path="res://toolkit/tileset.png" id="6_g3tdx"]
 [ext_resource type="Texture2D" uid="uid://dikh031p82xwd" path="res://toolkit/tileset_upgrade.png" id="7_vnimv"]
 [ext_resource type="PackedScene" uid="uid://cgrsydkwaw4lp" path="res://starting_pos.tscn" id="8_xoiav"]
-[ext_resource type="PackedScene" uid="uid://d2ineiirsios1" path="res://platform_path.tscn" id="9_f5h1b"]
+[ext_resource type="Script" uid="uid://eyrbhupls0nu" path="res://Levels/platform_path.gd" id="9_vmtie"]
 [ext_resource type="PackedScene" uid="uid://d0bkopksr02va" path="res://prompt_area.tscn" id="10_nkn5i"]
+[ext_resource type="PackedScene" uid="uid://dxoefujm084mh" path="res://platform_moving.tscn" id="10_sraex"]
 [ext_resource type="PackedScene" uid="uid://b0ujepoioi2u4" path="res://switch_area.tscn" id="11_me3ps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odxmo"]
@@ -971,7 +972,55 @@ sources/1 = SubResource("TileSetAtlasSource_1bvp3")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 sources/0 = SubResource("TileSetAtlasSource_lfbxl")
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[sub_resource type="Curve2D" id="Curve2D_me3ps"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 792, -32, 0, 0, 0, 0, 40, -32, 0, 0, 0, 0, 808, -32)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2h8"]
+size = Vector2(38, 9)
+
+[sub_resource type="Animation" id="Animation_nkn5i"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uj6fh"]
+resource_name = "platformmove"
+length = 10.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 10, 19.9901),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.5, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_me3ps"]
+_data = {
+&"RESET": SubResource("Animation_nkn5i"),
+&"platformmove": SubResource("Animation_uj6fh")
+}
+
+[node name="Node2D2" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_sdhjx")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
@@ -1005,9 +1054,43 @@ tile_set = SubResource("TileSet_1bvp3")
 [node name="startingPos" parent="." instance=ExtResource("8_xoiav")]
 position = Vector2(34, 344)
 
-[node name="platformPath" parent="." node_paths=PackedStringArray("active_mechanism") instance=ExtResource("9_f5h1b")]
-position = Vector2(0, 120)
+[node name="platformPath" type="Path2D" parent="." node_paths=PackedStringArray("active_mechanism")]
+position = Vector2(24, 328)
+curve = SubResource("Curve2D_me3ps")
+script = ExtResource("9_vmtie")
 active_mechanism = NodePath("../switchArea")
+
+[node name="ghostGrabber" parent="platformPath" instance=ExtResource("10_sraex")]
+position = Vector2(807.282, -32)
+collision_layer = 2
+
+[node name="ghostDetect" type="Area2D" parent="platformPath/ghostGrabber"]
+position = Vector2(-0.719452, -18)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platformPath/ghostGrabber/ghostDetect"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_1w2h8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="platformPath"]
+position = Vector2(807.282, -32)
+progress = 1519.1
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
+remote_path = NodePath("../../ghostGrabber")
+update_rotation = false
+update_scale = false
+
+[node name="ghostmove" type="RemoteTransform2D" parent="platformPath/PathFollow2D"]
+position = Vector2(0.796343, -15.8342)
+rotation = 3.14159
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platformPath"]
+libraries = {
+&"": SubResource("AnimationLibrary_me3ps")
+}
 
 [node name="promptArea" parent="." instance=ExtResource("10_nkn5i")]
 position = Vector2(128, 360)
@@ -1019,3 +1102,6 @@ Switches will keep an object active as long as they are on."
 
 [node name="switchArea" parent="." instance=ExtResource("11_me3ps")]
 position = Vector2(185, 362)
+
+[connection signal="body_entered" from="platformPath/ghostGrabber/ghostDetect" to="platformPath" method="_on_ghost_detect_body_entered"]
+[connection signal="body_exited" from="platformPath/ghostGrabber/ghostDetect" to="platformPath" method="_on_ghost_detect_body_exited"]
