@@ -1020,7 +1020,7 @@ _data = {
 &"platformmove": SubResource("Animation_uj6fh")
 }
 
-[node name="Node2D2" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
+[node name="Node2D3" type="Node2D" node_paths=PackedStringArray("start_pos", "player")]
 script = ExtResource("1_sdhjx")
 start_pos = NodePath("startingPos")
 player = NodePath("player")
