@@ -66,3 +66,6 @@ func _on_fullscreen_toggled(toggled_on: bool) -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+func _on_restart_pressed() -> void:
+	restart()

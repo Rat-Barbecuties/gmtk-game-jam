@@ -17,6 +17,7 @@ func _on_open_state_exited() -> void:
 func _on_open_state_processing(delta: float) -> void:
 	if interact.overlaps_body(Global.player) && !used:
 		used = true
+		AudioManager.play_sound_non_positional(load("res://player/kenney_impact-sounds/Audio/threeTone2.ogg"),0)
 		Global.player.state_chart.send_event("door")
 		get_tree().create_timer(1).timeout.connect(func():scene_transition_component.transition())
 		

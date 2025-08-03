@@ -909,7 +909,7 @@ sprite_frames = SubResource("SpriteFrames_5esjk")
 
 [node name="SceneTransitionComponent" type="Node2D" parent="door"]
 script = ExtResource("5_biamp")
-scene_path_to_transition_to = "uid://cwyv4mv06fqpy"
+scene_path_to_transition_to = "uid://b00oi34rwi15w"
 metadata/_custom_type_script = "uid://5s40abdygg7f"
 
 [node name="interact" type="Area2D" parent="door"]

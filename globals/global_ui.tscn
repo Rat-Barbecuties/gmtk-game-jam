@@ -328,6 +328,18 @@ value = 1.0
 script = ExtResource("6_swurt")
 bus_name = "Music"
 
+[node name="restart" type="Button" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_xibwf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_ftnco")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lcqkp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ftnco")
+text = "Restart
+"
+
 [node name="quit" type="Button" parent="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -359,4 +371,5 @@ libraries = {
 [connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2/HSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3/HSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4/HSlider" to="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4/HSlider" method="_on_value_changed"]
+[connection signal="pressed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="base/MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
